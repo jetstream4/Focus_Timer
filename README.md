@@ -18,32 +18,6 @@ A modern, highly optimized, and premium Focus Timer designed specifically for th
 
 ## 🕹️ Interface & State Machine
 
-### 📊 State Transition Diagram
-
-Below is the state machine flow showing boot, timing loops, setup triggers, and the manual stop cancellation cycle:
-
-```mermaid
-stateDiagram-v2
-    [*] --> IDLE : "Boot / Reset"
-
-    IDLE --> SETUP_FOCUS : "Press B [SETUP]"
-    IDLE --> RUNNING_FOCUS : "Press A [START]"
-
-    SETUP_FOCUS --> IDLE : "Press A [CANCEL]"
-    SETUP_FOCUS --> SETUP_BREAK : "Press B [NEXT]"
-    SETUP_FOCUS --> SETUP_FOCUS : "Press C [+] / D [-] (Adjust)"
-
-    SETUP_BREAK --> IDLE : "Press A [CANCEL]"
-    SETUP_BREAK --> IDLE : "Press B [SAVE]"
-    SETUP_BREAK --> SETUP_BREAK : "Press C [+] / D [-] (Adjust)"
-
-    RUNNING_FOCUS --> RUNNING_BREAK : "Focus Expires"
-    RUNNING_FOCUS --> IDLE : "Press A [STOP] (Reset)"
-
-    RUNNING_BREAK --> RUNNING_FOCUS : "Break Expires (Loop & Increment)"
-    RUNNING_BREAK --> IDLE : "Press A [STOP] (Reset)"
-```
-
 The Focus Timer operates across 5 core states. The 4 physical buttons (from left to right: **A, B, C, D**) dynamically change roles as shown below:
 
 ```
