@@ -18,6 +18,52 @@ A modern, highly optimized, and premium Focus Timer designed specifically for th
 
 ## 🕹️ Interface & State Machine
 
+### 📊 State Transition Diagram
+
+Below is the state machine flow showing boot, timing loops, setup triggers, and the manual stop cancellation cycle:
+
+```mermaid
+stateDiagram-v2
+    [*] --> IDLE : Boot up / Reset
+
+    state IDLE {
+        [*] --> Waiting
+    }
+
+    state SETUP_FOCUS {
+        [*] --> AdjustFocus
+    }
+
+    state SETUP_BREAK {
+        [*] --> AdjustBreak
+    }
+
+    state RUNNING_FOCUS {
+        [*] --> FocusCountdown
+    }
+
+    state RUNNING_BREAK {
+        [*] --> BreakCountdown
+    }
+
+    IDLE --> SETUP_FOCUS : Press B [SETUP]
+    IDLE --> RUNNING_FOCUS : Press A [START]
+
+    SETUP_FOCUS --> IDLE : Press A [CANCEL]\n(Discard changes)
+    SETUP_FOCUS --> SETUP_BREAK : Press B [NEXT]\n(Save Focus duration)
+    SETUP_FOCUS --> SETUP_FOCUS : Press C [+] / D [-]\n(Adjust time, 1s deferred refresh)
+
+    SETUP_BREAK --> IDLE : Press A [CANCEL]\n(Discard changes)
+    SETUP_BREAK --> IDLE : Press B [SAVE]\n(Save Break duration, play chime)
+    SETUP_BREAK --> SETUP_BREAK : Press C [+] / D [-]\n(Adjust time, 1s deferred refresh)
+
+    RUNNING_FOCUS --> RUNNING_BREAK : Focus Time Expires\n(Play ascending chime)
+    RUNNING_FOCUS --> IDLE : Press A [STOP]\n(Cancel session, reset cycles to 0)
+
+    RUNNING_BREAK --> RUNNING_FOCUS : Break Time Expires\n(Play sweet dual chime,\nincrement Cycle Counter)
+    RUNNING_BREAK --> IDLE : Press A [STOP]\n(Cancel session, reset cycles to 0)
+```
+
 The Focus Timer operates across 5 core states. The 4 physical buttons (from left to right: **A, B, C, D**) dynamically change roles as shown below:
 
 ```
