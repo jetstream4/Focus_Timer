@@ -1,0 +1,3 @@
+# Default durations in minutes for the Focus Timer on Adafruit MagTag
+FOCUS_TIME = 30
+BREAK_TIME = 10

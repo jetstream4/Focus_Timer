@@ -1,0 +1,19 @@
+# CircuitPython libraries (Better to fetch from official bundle)
+lib/
+
+# Local configuration / secrets file
+# WARNING: If you add Wi-Fi SSIDs, passwords, or Adafruit IO keys to settings.toml,
+# make sure it is ignored so you do not accidentally expose secrets!
+# You can commit a settings.toml.example instead.
+# settings.toml
+
+# System files
+.DS_Store
+Thumbs.db
+*.pyc
+
+# IDEs and editors
+.vscode/
+.idea/
+*.swp
+*.swo

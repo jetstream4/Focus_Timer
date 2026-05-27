@@ -1,0 +1,10 @@
+# Example Focus Timer configuration
+# Copy this file to 'settings.toml' on your CIRCUITPY drive root and adjust values as desired.
+
+# Default durations in minutes
+FOCUS_TIME = 30
+BREAK_TIME = 10
+
+# Note: If your project ever connects to Wi-Fi in the future, you would also add:
+# CIRCUITPY_WIFI_SSID = "your_wifi_name"
+# CIRCUITPY_WIFI_PASSWORD = "your_wifi_password"
